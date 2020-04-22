@@ -45,6 +45,7 @@ pool:
 steps:
 - task: Maven@3
   inputs:
+    options: '--debug'
     mavenPomFile: ${{ parameters.applicationPom }}
     mavenOptions: '-Dremote.env= ${{ parameters.environment }} -f ${{ parameters.applicationPom}}.xml ${{ parameters.add_mvn_params }}'
     javaHomeOption: 'JDKVersion'
