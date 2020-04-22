@@ -3,6 +3,11 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
+parameters:
+- name: yesNo # name of the parameter; required
+  type: boolean # data type of the parameter; required
+  default: false
+
 trigger:
 - master
 
@@ -10,6 +15,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- script: echo ${{ parameters.yesNo }}
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
