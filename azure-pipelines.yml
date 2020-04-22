@@ -19,10 +19,22 @@ parameters:
     - test
     - cluster
     - upg
+
 - name: add_mvn_params
   displayName: Additional maven build params
   type: string
   default: -DskipTests
+
+- name: applicationPom
+  displayName: Select application pom
+  type: string
+  values:
+    - pom-main
+    - pom-web
+    - pom-ws
+    - pom-scheduler
+    - pom-monitoring
+    - pom-finadapter
 
 trigger:
 - master
@@ -31,14 +43,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo ${{ parameters.yesNo }}
 - task: Maven@3
   inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
+    mavenPomFile: ${{ parameters.applicationPom }}
+    mavenOptions: '-Dremote.env=' ${{ parameters.environment }} '-f' ${{ parameters.applicationPom}} '.xml' ${{ parameters.add_mvn_params }}
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    goals: 'clean deploy'
