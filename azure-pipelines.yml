@@ -5,8 +5,24 @@
 
 parameters:
 - name: isInterruptOnFail # name of the parameter; required
+  displayName: Stop build after first failed stage
   type: boolean # data type of the parameter; required
   default: true
+
+- name: environment
+  displayName: Select environment
+  type: string
+  default: dev
+  values:
+    - dev
+    - dev2
+    - test
+    - cluster
+    - upg
+- name: add_mvn_params
+  displayName: Additional maven build params
+  type: string
+  default: -DskipTests
 
 trigger:
 - master
