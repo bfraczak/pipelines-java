@@ -15,7 +15,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo ${{ parameters.yesNo }}
+- script: echo ${{ parameters.isInterruptOnFail }}
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
