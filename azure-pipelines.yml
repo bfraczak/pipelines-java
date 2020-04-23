@@ -3,6 +3,13 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
+resources:
+  repositories:
+    - repository: pipelines-java-test
+      type: github
+      endpoint: https://github.com/
+      name: bfraczak/pipelines-java-test
+
 parameters:
 - name: isInterruptOnFail # name of the parameter; required
   displayName: Stop build after first failed stage
@@ -44,6 +51,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- checkout: self
+- checkout: pipelines-java-test
 - task: Maven@3
   inputs:
     options: '--debug'
@@ -55,3 +64,4 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
