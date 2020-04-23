@@ -29,6 +29,7 @@ parameters:
   displayName: Select application pom
   type: string
   values:
+    - pom
     - pom-main
     - pom-web
     - pom-ws
@@ -47,7 +48,7 @@ steps:
   inputs:
     options: '--debug'
     mavenPomFile: ${{ parameters.applicationPom }}
-    mavenOptions: '-Dremote.env= ${{ parameters.environment }} -f ${{ parameters.applicationPom}}.xml ${{ parameters.add_mvn_params }}'
+    mavenOptions: '-Dremote.env= ${{ parameters.environment }} -f ${{ parameters.applicationPom }}.xml ${{ parameters.add_mvn_params }}'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
