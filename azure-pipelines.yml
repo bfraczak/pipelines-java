@@ -47,8 +47,8 @@ steps:
 - task: Maven@3
   inputs:
     options: '--debug'
-    mavenPomFile: '${parameters.applicationPom}.xml'
-    mavenOptions: '-Dremote.env=${parameters.environment}  ${parameters.add_mvn_params}'
+    mavenPomFile: '${{ parameters.applicationPom }}.xml'
+    mavenOptions: '-Dremote.env=${{ parameters.environment }}  ${{ parameters.add_mvn_params }}'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
